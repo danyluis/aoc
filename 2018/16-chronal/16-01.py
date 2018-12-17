@@ -75,18 +75,6 @@ def countSameResult(before, inst, after):
 
     return same
 
-def printdict(d, name):
-    print name
-    for k in d.keys():
-        print "{} => {}".format(k, sorted(list(d[k])))
-    print
-
-def validPerm(codeToName, opToName):
-    for code, name in codeToName:
-        if name not in opToName[code]:
-            return False
-    return True
-
 def main():
     reState = compile("^\\w+:\\s+\\[(\\d+), (\\d+), (\\d+), (\\d+)]")
     global registers, opToName
