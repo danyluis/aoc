@@ -8,8 +8,7 @@ from collections import *
 threes, twos = 0, 0
 
 for line in stdin.readlines():
-    line    = line.strip()
-    lcter   = Counter(line)
+    lcter   = Counter(line.strip())
     twos   += 1 if 2 in lcter.values() else 0
     threes += 1 if 3 in lcter.values() else 0
 
