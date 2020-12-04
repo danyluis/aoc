@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+import sys
+
+pattern = []
+for line in sys.stdin:
+    pattern.append(line.strip())
+
+height = len(pattern)
+width = len(pattern[0])
+
+answer = 1
+for horiz, vert in ((1, 1), (3, 1), (5, 1), (7, 1), (1, 2)):
+    col, row, trees = 0, 0, 0
+
+    while row < height - 1:
+        col = (col + horiz) % width
+        row += vert
+        trees = trees + (1 if pattern[row][col] == "#" else 0)
+
+    answer *= trees
+
+print(f'Trees multiplied: {answer}')
