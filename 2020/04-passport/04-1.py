@@ -1,13 +1,16 @@
 #!/usr/bin/env python
+
+# Advent of Code 2020
+# https://adventofcode.com/2020/day/4
+
 import sys
 import re
-
 
 def read_passports():
     fields = []
     for line in sys.stdin:
         line = line.strip()
-    
+
         if not line:
             yield(fields)
             fields = []
