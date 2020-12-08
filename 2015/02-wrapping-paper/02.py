@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Advent of Code 2015
+# https://adventofcode.com/2015/day/2
+
 import sys
 
 def required_paper(a, b, c):
