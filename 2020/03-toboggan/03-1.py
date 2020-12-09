@@ -7,7 +7,7 @@ import sys
 
 pattern = []
 for line in sys.stdin:
-    line = line.strip():
+    line = line.strip()
     if line:
         pattern.append(line)
 
