@@ -32,10 +32,14 @@ def run(f, seat_codes):
     start = datetime.now()
     seat = f(seat_codes)
     end = datetime.now()
-    print(f'Your seat is {seat}')
-    print(f'Time for {f.__name__}: {end - start}\n')
+    print(f'\nYour seat is {seat}')
+    print(f'Time for {f.__name__}: {end - start}')
 
 
 seat_codes = set(read_seat_codes())
+
+max_code = max(seat_codes)
+print(f'Maximum seat code is {max_code}')
+
 for f in (solve_using_sn, solve_using_set):
     run(f, seat_codes)
