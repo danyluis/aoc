@@ -24,8 +24,7 @@ def follow_route(steps):
 def both_deliver(steps):
     santa = [steps[i] for i in range(0, len(steps), 2)]
     robot = [steps[i] for i in range(1, len(steps), 2)]
-    houses = follow_route(santa)
-    houses |= follow_route(robot)
+    houses = follow_route(santa) | follow_route(robot)
     return houses
 
 for line in sys.stdin:
