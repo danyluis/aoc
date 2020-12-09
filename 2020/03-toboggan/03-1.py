@@ -5,12 +5,7 @@
 
 import sys
 
-pattern = []
-for line in sys.stdin:
-    line = line.strip()
-    if line:
-        pattern.append(line)
-
+pattern = [line.strip() for line in sys.stdin.readlines() if line.strip()]
 height = len(pattern)
 width = len(pattern[0])
 
