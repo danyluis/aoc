@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Advent of Code 2020
-# https://adventofcode.com/2020/day/13
+# https://adventofcode.com/2020/day/14
 
 import sys
 import re
