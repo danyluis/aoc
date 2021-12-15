@@ -10,41 +10,40 @@ import heapq
 
 MAX = float('inf')
 
-def cells_around(cell, matrix):
+def cells_around(cell, height, width):
     row, col = cell
     for dr, dc in ((0, -1), (0, 1), (-1, 0), (1, 0)):
         r, c = row + dr, col + dc
-        if 0 <= r < len(matrix) and 0 <= c < len(matrix[0]):
+        if 0 <= r < height and 0 <= c < width:
             yield (r, c,)
 
-def all_cells(matrix):
-    return ((r, c,) for c in range(len(matrix[0])) for r in range(len(matrix)))
+def all_cells(height, width):
+    return ((r, c,) for c in range(width) for r in range(height))
 
-def distances_around(cell, matrix):
-    for cell in cells_around(cell, matrix):
-        r, c = cell
-        yield (cell, matrix[r][c],)
-        
-def tile_cave(cave, times=5):
-    h, w = len(cave), len(cave[0])
-    return [[((cave[r % h][c % w] - 1 + r // h + c // w) % 9) + 1 for c in range(w * times)]
-        for r in range(h * times) ]
+def risk(matrix, row, col):
+    h, w = len(matrix), len(matrix[0])
+    return ((matrix[row % h][col % w] - 1 + row // h + col // w) % 9) + 1
 
-def dijkstra(matrix, source=(0, 0,)):
-    dist = {cell: MAX for cell in all_cells(matrix)}
+def risks_around(cell, matrix, height, width):
+    for cell in cells_around(cell, height, width):
+        yield (cell, risk(matrix, *cell))
+
+def dijkstra(matrix, source=(0, 0,), tiles=1):
+    height, width = len(matrix) * tiles, len(matrix[0]) * tiles
+    dist = {cell: MAX for cell in all_cells(height, width)}
     dist[source] = 0
     heap = [(0, source)]
     while heap:
         base_distance, cell = heapq.heappop(heap)
         if base_distance <= dist[cell]:
-            for neighbour, d_to_neighbour in distances_around(cell, matrix):
+            for neighbour, d_to_neighbour in risks_around(cell, matrix, height, width):
                 d = base_distance + d_to_neighbour
                 if d < dist[neighbour]:
                     dist[neighbour] = d
                     heapq.heappush(heap, (d, neighbour))
 
     dest = max(dist.keys())
-    print(f'distance from {source} to {dest}: {dist[dest]} ')
+    print(f'total risk from {source} to {dest}: {dist[dest]} ')
 
 
 cave = [[int(i) for i in line.strip()] for line in sys.stdin.readlines()]
@@ -53,4 +52,4 @@ print('small')
 dijkstra(cave)
 
 print('\nbig')
-dijkstra(tile_cave(cave))
+dijkstra(cave, source=(0, 0), tiles=5)
